@@ -2,6 +2,7 @@
 import os
 from dotenv import load_dotenv
 import pytest
+import json
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -13,6 +14,12 @@ from settings import url, valid_email  # Предполагается, что ur
 # Загрузка переменных окружения
 load_dotenv()
 
+def load_test_data(filename):
+    with open(filename) as f:
+        return json.load(f)
+@pytest.fixture(scope="session")
+def test_data():
+    return load_test_data()
 
 @pytest.fixture
 def chrome_options():
