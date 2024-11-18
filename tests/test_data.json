@@ -1,11 +1,24 @@
 {
     "valid": [
-        {"username": "validUser1", "email": "valid@example.com", "password": "pass123"},
-        {"username": "validUser2", "email": "another@example.com", "password": "pass456"}
+        {
+            "username": "Пётр",
+            "user_surname": "Анискин",
+            "email": "test@example.com",
+            "password": "345g6"
+        },
+        {
+            "username": "Ваня",
+            "user_surname": "Смолин",
+            "email": "testuser@example.com",
+            "password": "securepassword123"
+        }
     ],
     "invalid": [
-        {"username": "", "email": "noEmail", "password": "pass123"},
-        {"username": "userWithoutPassword", "email": "user@example.com", "password": ""},
-        {"username": "user1", "email": "invalidEmailFormat", "password": "pass789"}
+        {
+            "username": "",
+            "user_surname": "invalidsurname",
+            "email": "invalidemail",
+            "password": "invalidpassword"
+        }
     ]
 }
