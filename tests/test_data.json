@@ -1,16 +1,14 @@
 {
     "valid": [
-        {
-            "username": "Пётр",
-            "user_surname": "Анискин",
-            "email": "test@example.com",
-            "password": "345g6"
-        },
+
         {
             "username": "Ваня",
             "user_surname": "Смолин",
+            "phone": "791000000",
             "email": "testuser@example.com",
-            "password": "securepassword123"
+            "password": "securepassword123",
+            "login": "Garbne",
+            "score": "98888777656"
         }
     ],
     "invalid": [

@@ -26,4 +26,6 @@ class AuthorizationLocators:
     FIELD_LOGIN = (By.ID, "username")
     FIELD_SCORE = (By.ID, "username")
     FIELD_PASSWORD = (By.ID, "password")
-    BTN_NEW_USER = (By.ID, "kc-login")
+    FIELD_BUTTON = (By.ID, "kc-login")
+    IMG_CAPTCHA_URL = (By.CSS_SELECTOR, "img.rt-captcha__image")
+    FIELD_CAPTCHA = (By.ID, "captcha")
