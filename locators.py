@@ -14,6 +14,8 @@ class RegistrationLocators:
     FIELD_PASSWORD_NEW = (By.ID, "password")
     FIELD_PASSWORD = (By.ID, "password-confirm")
     FIELD_BUTTON = (By.LINK_TEXT, "Зарегистрироваться")
+    PERSONAL_ACCOUNT = (By.ID, "lk-btn")
+    ERROR_MESSAGE = (By.ID, "form-error-message")
 
 class AuthorizationLocators:
     CARD_TITLE = (By.ID, "card-title")

@@ -9,9 +9,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from settings import url, valid_email  # Предполагается, что url уже загружен из настроек
+from settings import url  # Предполагается, что url уже загружен из настроек
 
-# Загрузка переменных окружения
+
 load_dotenv()
 
 def load_test_data(filename):

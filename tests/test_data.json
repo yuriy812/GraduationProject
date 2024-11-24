@@ -3,20 +3,74 @@
 
         {
             "username": "Ваня",
-            "user_surname": "Смолин",
-            "phone": "791000000",
-            "email": "testuser@example.com",
-            "password": "securepassword123",
-            "login": "Garbne",
-            "score": "98888777656"
+            "email": "wahehom375@exoular.com",
+            "password": ">@fs5GWh[@&G)B8F",
+            "login": "rtkid_1732179726721"
+
+        },
+        {
+            "username": "Ання",
+            "email": "fuchsiablinny@goeschman.com",
+            "password": "yQ*Ud7ARc<Smtmhs",
+            "login": "rtkid_1732188986530"
+
         }
     ],
     "invalid": [
+         {
+            "username": "Ання",
+            "user_surname": "Тимонина",
+            "phone": "791000000",
+            "email": "fuchsiablinny@goeschman.com",
+            "password": "yQ*Ud7ARc<Smtmhs",
+            "login": "rtkid_17321889865",
+            "score": "98888777656"
+        },
+        {
+            "username": "Ання",
+            "user_surname": "Тимонина",
+            "phone": "791000000",
+            "email": "fuchsiablinnygoeschman.com",
+            "password": "yQ*Ud7ARc<Smtmhs",
+            "login": "rtkid_1732188986530",
+            "score": "98888777656"
+        },
+        {
+            "username": "Ання",
+            "user_surname": "Тимонина",
+            "phone": "791000000",
+            "email": "",
+            "password": "yQ*Ud7ARc<Smtmhs",
+            "login": "rtkid_1732188986530",
+            "score": "98888777656"
+        },
         {
             "username": "",
-            "user_surname": "invalidsurname",
-            "email": "invalidemail",
-            "password": "invalidpassword"
+            "user_surname": "Смолин",
+            "phone": "791000000",
+            "email": "testuser@exoular.com",
+            "password": ">@fs5GWh[@&G)B8F",
+            "login": "rtkid_1732179726721",
+            "score": "98888777656"
+        },
+        {
+            "username": "2567954",
+            "user_surname": "Смолин",
+            "phone": "791000000",
+            "email": "testuser@exoular.com",
+            "password": ">@fs5GWh[@&G)B8F",
+            "login": "rtkid_1732179726721",
+            "score": "98888777656"
+        },
+        {
+            "username": "Ир",
+            "user_surname": "Смолин",
+            "phone": "+79100000000",
+            "email": "email@domain@domain.com",
+            "password": "@fs5GWhi",
+            "login": "rtkid_1732179726721",
+            "score": "98888777656"
         }
+
     ]
 }
