@@ -270,39 +270,9 @@ def test_authorization_login(setup_chrome, user_data):
 
     perform_login(driver, user_data['password'])
 
-def pytest_sessionfinish(session, exitstatus):
-    save_results(results)
 
 
-@pytest.mark.parametrize("user_data", test_data["valid"])
-def test_authorization_email(setup_chrome, user_data):
-    driver = setup_chrome
-    driver.get(url)
-    email_click = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(AuthorizationLocators.LINK_EMAIL)
-    )
-    email_click.click()
-    # Вызов функции обработки капчи
-    handle_captcha(driver)
-    email_input = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(AuthorizationLocators.FIELD_EMAIL)
-    )
-    email_input.send_keys(user_data['email'])
-    perform_login(driver, user_data['password'])
 
 
-@pytest.mark.parametrize("user_data", test_data["valid"])
-def test_authorization_login(setup_chrome, user_data):
-    driver = setup_chrome
-    driver.get(url)
 
-    login_click = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(AuthorizationLocators.LINK_LOGIN)
-    )
-    login_click.click()
-    login_input = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(AuthorizationLocators.FIELD_LOGIN)
-    )
-    login_input.send_keys(user_data['login'])
-    # Вызов функции обработки капчи
-    perform_login(driver, user_data['password'])
+
