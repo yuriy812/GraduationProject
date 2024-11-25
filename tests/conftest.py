@@ -11,8 +11,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from settings import url  # Предполагается, что url уже загружен из настроек
 
-
+# Загружаем переменные окружения
 load_dotenv()
+
 
 def load_test_data(filename):
     with open(filename) as f:

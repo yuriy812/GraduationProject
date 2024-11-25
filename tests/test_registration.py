@@ -1,27 +1,39 @@
 # test_registration.py
 import pytest
+import json
+import datetime
+from module_report import results, save_results
+from module_screenshot import take_screenshot  # Убедитесь, что у вас есть эта функция
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from settings import url, nev_name
-from locators import RegistrationLocators  # Импортируем локаторы
-import time
+from selenium.common.exceptions import TimeoutException
+from settings import url
+from locators import *  # Импортируем локаторы
 
-def test_authorization(setup_chrome):
-    driver = setup_chrome
+
+# Функция для загрузки данных из JSON
+def load_test_data(filename):
+    with open(filename, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+
+test_data = load_test_data('test_data.json')
+
+results = []  # Список для хранения результатов тестов
+
+def perform_login(driver):
     driver.get(url)
+    wait = WebDriverWait(driver, 10)
 
     # Ожидаем, пока элемент с ID "card-title" станет доступным
-    element = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(RegistrationLocators.CARD_TITLE)
-    )
+    element = wait.until(EC.presence_of_element_located(RegistrationLocators.CARD_TITLE))
 
     # Проверяем, что текст элемента содержит "Авторизация"
     assert "Авторизация" in element.text, "Текст элемента не содержит 'Авторизация'"
 
     # Нажимаем на кнопку "Зарегистрироваться"
-    wait = WebDriverWait(driver, 10)
-    btn_newuser = wait.until(EC.element_to_be_clickable(RegistrationLocators.BTN_NEW_USER))
-    btn_newuser.click()
+    btn_new_user = wait.until(EC.element_to_be_clickable(RegistrationLocators.BTN_NEW_USER))
+    btn_new_user.click()
 
     # Ожидаем, пока элемент с ID "card-title" станет доступным после перехода на страницу регистрации
     element = wait.until(EC.presence_of_element_located(RegistrationLocators.CARD_TITLE))
@@ -29,45 +41,109 @@ def test_authorization(setup_chrome):
     # Проверяем, что текст элемента содержит "Регистрация"
     assert "Регистрация" in element.text, "Текст элемента не содержит 'Регистрация'"
 
-    # Добавляем имя
-    field_name = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(RegistrationLocators.FIELD_NAME)
-    )
-    field_name.click()
-    field_name.send_keys(nev_name)
 
-    # Проверяем введенное имя
-    entered_name = field_name.get_attribute('value')
+def fill_registration_form(driver, user_data):
+    wait = WebDriverWait(driver, 10)
 
-    if entered_name == nev_name:
-        # Сохранение скриншота
-        timestamp = int(time.time())
-        screenshot_filename = f'images/result_{timestamp}.png'
-        driver.save_screenshot(screenshot_filename)
-        print(f'Screenshot saved as: {screenshot_filename}')
-    else:
-        raise Exception("Login error: Введенное имя не совпадает с ожидаемым.")
+    if user_data['username']:
+        field_name = wait.until(EC.presence_of_element_located(RegistrationLocators.FIELD_NAME))
+        field_name.send_keys(user_data['username'])
+
+    if user_data['user_surname']:
+        field_user_surname = wait.until(EC.presence_of_element_located(RegistrationLocators.FIELD_SURNAME))
+        field_user_surname.send_keys(user_data['user_surname'])
+
+    if user_data['email']:
+        field_email = wait.until(EC.presence_of_element_located(RegistrationLocators.FIELD_EMAIL))
+        field_email.send_keys(user_data['email'])
+
+    if user_data['password']:
+        field_password_new = wait.until(EC.presence_of_element_located(RegistrationLocators.FIELD_PASSWORD_NEW))
+        field_password_new.send_keys(user_data['password'])
+
+        field_password = wait.until(EC.presence_of_element_located(RegistrationLocators.FIELD_PASSWORD))
+        field_password.send_keys(user_data['password'])
+
+    field_button = wait.until(EC.element_to_be_clickable(RegistrationLocators.FIELD_BUTTON))
+    field_button.click()
 
 
+@pytest.mark.parametrize("user_data", test_data["valid"])
+def test_registration_valid(setup_chrome, user_data):
+    driver = setup_chrome
+    perform_login(driver)
 
-    @pytest.mark.parametrize("data", [
-        {"username": "validUser1", "email": "valid@example.com", "password": "pass123"},
-        {"username": "validUser2", "email": "another@example.com", "password": "pass456"}
-    ])
-    def test_registration_valid(data):
-        # Логика успешной регистрации
-        assert data['username']
-        assert '@' in data['email']
-        assert len(data['password']) > 0
+    try:
+        fill_registration_form(driver, user_data)
 
-    def test_registration_invalid(test_data):
-        for data in test_data['invalid']:
-            # Логика обработки невалидных значений
-            error_count = 0
-            if not data['username']:
-                error_count += 1  # Ожидаем ошибку при пустом имени пользователя
-            if "@" not in data['email']:
-                error_count += 1  # Ожидаем ошибку при невалидном email
-            if not data['password']:
-                error_count += 1  # Ожидаем ошибку при пустом пароле
-            assert error_count > 0  # Ожидаем, что будет хотя бы одна ошибка
+        # Проверка успешной регистрации
+        success_account = WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located(RegistrationLocators.PERSONAL_ACCOUNT)
+        )
+        assert "Личный кабинет" in success_account.text, "Переход в личный кабинет не отображается"
+
+        # Проверка, что сообщение об ошибке не отображается
+        try:
+            error_message = WebDriverWait(driver, 2).until(
+                EC.presence_of_element_located(RegistrationLocators.ERROR_MESSAGE)
+            )
+            assert "Неверный логин или пароль" not in error_message.text, "Сообщение об ошибке отображается неожиданно"
+        except TimeoutException:
+            pass  # Сообщение об ошибке не отображается
+
+            # Сохранение результатов теста
+        results.append({
+            'test': 'Registration Valid Test',
+            'status': 'Passed',
+            'timestamp': datetime.now(),
+            'error': None
+        })
+
+
+    except Exception as e:
+        take_screenshot(driver)  # Сохраняем скриншот при ошибке
+        print(f"Ошибка при выполнении регистрации: {e}")
+        results.append({
+            'test': 'Registration Valid Test',
+            'status': 'Failed',
+            'timestamp': datetime.now(),
+            'error': str(e)
+        })
+        raise  # Повторно выбрасываем исключение, если нужно
+
+
+@pytest.mark.parametrize("user_data", test_data["invalid"])
+def test_registration_invalid(setup_chrome, user_data):
+    driver = setup_chrome
+    perform_login(driver)
+    fill_registration_form(driver, user_data)
+
+    try:
+        # Проверка ошибок
+        error_message = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(RegistrationLocators.ERROR_MESSAGE)
+        )
+        assert error_message.is_displayed(), "Сообщение об ошибке не отображается"
+        assert "Учётная запись уже существует" in error_message.text, "Сообщение об ошибке не содержит 'Учётная запись уже существует'"
+
+        # Сохранение результатов теста
+        results.append({
+            'test': 'Registration Invalid Test',
+            'status': 'Passed',
+            'timestamp': datetime.now(),
+            'error': None
+        })
+
+    except Exception as e:
+        take_screenshot(driver)  # Сохраняем скриншот при ошибке
+        print(f"Ошибка при выполнении регистрации: {e}")
+        results.append({
+            'test': 'Registration Invalid Test',
+            'status': 'Failed',
+            'timestamp': datetime.now(),
+            'error': str(e)
+        })
+        raise  # Повторно выбрасываем исключение, если нужно
+    finally:
+        save_results(results)  # Сохранение результатов после выполнения теста
+        print(f"Текущие результаты: {results}")
