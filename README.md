@@ -9,22 +9,22 @@ GraduationProject — это набор автоматизированных т�
 ## Структура проекта  
 
 ```
-GraduationProject
-│
-├── __init__.py
-├── locators.py
-├── module_report.py
-├── module_screenshot.py
-├── reports/
-├── settings.py
-└── tests/
-    ├── images/
+    GraduationProject
+    │
     ├── __init__.py
-    ├── conftest.py
-    ├── test_authorization.py
-    ├── test_data.json
-    ├── test_negative_authorization.py
-    └── test_registration.py
+    ├── locators.py
+    ├── module_report.py
+    ├── module_screenshot.py
+    ├── reports/
+    ├── settings.py
+    └── tests/
+        ├── images/
+        ├── __init__.py
+        ├── conftest.py
+        ├── test_authorization.py
+        ├── test_data.json
+        ├── test_negative_authorization.py
+        └── test_registration.py
 ```
 
 ### Описание файлов  
