@@ -5,12 +5,12 @@
 
 - Объект тестирования: https://b2c.passport.rt.ru
 
-- [Требования по проекту (.doc)](https://drive.google.com/drive/folders/1F2Esxe-elNOdzcL6l1v4F94V3kb5RS7r?usp=sharing)
+- [Требования по проекту (.doc)](https://docs.google.com/document/d/12yoTwHSTXxIUQQCH32OvlSd3QYUt_aQk/edit?usp=sharing&ouid=114302123057644378289&rtpof=true&sd=true)
 
 ## Описание проекта  
 
 GraduationProject — это набор автоматизированных тестов для проверки функциональности формы авторизации и регистрации веб-приложения "Ростелеком".   Проект включает тесты для авторизации и регистрации пользователей с использованием различных методов, таких как электронная почта, логин и телефон, а также обработку капчи.  
-- [Тест-кейсы, дефекты (.excel, pdf)](https://drive.google.com/drive/folders/1VG3AksJ-4hhcnIDxIjWWwzjIB6_4Fcjg?usp=sharing)
+- [Тест-кейсы, дефекты (.excel, pdf)](https://drive.google.com/drive/folders/1F2Esxe-elNOdzcL6l1v4F94V3kb5RS7r?usp=sharing)
 ## Структура проекта  
 
 ```
