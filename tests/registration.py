@@ -1,4 +1,4 @@
-# test_registration.py
+# registration.py
 import pytest
 import json
 import datetime

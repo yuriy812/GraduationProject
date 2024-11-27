@@ -1,4 +1,4 @@
-# test_authorization.py
+# authorization.py
 import pytest
 import json
 import requests

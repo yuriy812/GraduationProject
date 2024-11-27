@@ -26,10 +26,10 @@ GraduationProject — это набор автоматизированных т�
         ├── images/
         ├── __init__.py
         ├── conftest.py
-        ├── test_authorization.py
+        ├── authorization.py
         ├── test_data.json
-        ├── test_negative_authorization.py
-        └── test_registration.py
+        ├── negative_authorization.py
+        └── registration.py
 ```
 
 ### Описание файлов  
